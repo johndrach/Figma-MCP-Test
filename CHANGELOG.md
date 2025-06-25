@@ -11,3 +11,7 @@ All notable changes to this project will be documented in this file.
 - Uses Figma variables for color, padding, border radius, and font
 - All combinations grid for visual QA
 - Setup instructions and Figma MCP export directions in README 
+
+## [v1.0.2] - 2024-06-11
+### Changed
+- Set all playground and button gaps to 4px for consistent spacing 

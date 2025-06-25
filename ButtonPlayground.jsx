@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "./components/ui/button";
 
 // Figma variable values
 const COLORS = {

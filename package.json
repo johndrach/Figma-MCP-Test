@@ -1,0 +1,27 @@
+{
+  "name": "figma-mcp-test",
+  "version": "1.0.0",
+  "description": "This project is a Storybook-like playground for previewing, interacting with, and testing button components designed in Figma MCP. It allows you to view all button sizes and states, and interactively preview different variants.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./input.css -o ./tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johndrach/Figma-MCP-Test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/johndrach/Figma-MCP-Test/issues"
+  },
+  "homepage": "https://github.com/johndrach/Figma-MCP-Test#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10"
+  }
+}

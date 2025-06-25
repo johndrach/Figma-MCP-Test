@@ -11,8 +11,8 @@
       body { background: #f8f8f8; font-family: 'Open Sans', sans-serif; margin: 0; }
       .playground-section { background: #fff; border-radius: 16px; margin: 32px auto; max-width: 900px; padding: 32px; box-shadow: 0 2px 8px #0001; }
       .label { font-weight: 600; font-size: 1.2rem; margin-bottom: 16px; }
-      .controls { display: flex; gap: 48px; margin-bottom: 32px; }
-      .controls-group { display: flex; flex-direction: column; gap: 8px; }
+      .controls { display: flex; gap: 4px; margin-bottom: 32px; }
+      .controls-group { display: flex; flex-direction: column; gap: 4px; }
       .preview-box { background: #f3f5f1; border-radius: 12px; padding: 32px; margin-bottom: 32px; min-height: 120px; display: flex; align-items: center; }
       .all-combos { background: #f3f5f1; border-radius: 12px; padding: 32px; }
       .combos-table { width: 100%; border-collapse: collapse; }
@@ -66,7 +66,7 @@ function Button({ size, state, icon = true, label = 'Test Button', ...rest }) {
         height: s.height, padding: s.padding, border: 'none', borderRadius: BORDER_RADIUS,
         background: COLORS[st], color: TEXT_COLORS[st], fontSize: s.fontSize, fontWeight: 500,
         fontFamily: 'Open Sans, sans-serif', cursor: st === 'disabled' ? 'not-allowed' : 'pointer',
-        opacity: st === 'disabled' ? 0.5 : 1, gap: 8, minWidth: 100,
+        opacity: st === 'disabled' ? 0.5 : 1, gap: 4, minWidth: 100,
         transition: 'background 0.2s',
       }}
       disabled={st === 'disabled'}
