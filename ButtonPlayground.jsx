@@ -121,9 +121,17 @@ export default function ButtonPlayground() {
           />
         </label>
       </div>
-      <Button size={size} state={state} icon={icon}>
-        {label}
-      </Button>
+      <div style={{ display: 'flex', gap: 32, marginBottom: 32 }}>
+        {/* Preview Box */}
+        <div style={{ flex: 1, background: '#f3f5f1', borderRadius: 12, padding: 32, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <span style={{ fontWeight: 500, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>Preview</span>
+          <Button size={size} state={state} icon={icon}>
+            {label}
+          </Button>
+        </div>
+        {/* Demo Box */}
+        <DemoButtonBox />
+      </div>
       <hr style={{ margin: "32px 0" }} />
       <h3>All Variants</h3>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
@@ -144,6 +152,39 @@ export default function ButtonPlayground() {
           ))
         )}
       </div>
+    </div>
+  );
+}
+
+// DemoButtonBox: a box with a label 'Demo' and a button that demonstrates all states interactively
+function DemoButtonBox() {
+  const [btnState, setBtnState] = React.useState('active');
+  const [disabled, setDisabled] = React.useState(false);
+  // For demo, use large size and icon
+  const handleMouseEnter = () => !disabled && setBtnState('hover');
+  const handleMouseLeave = () => !disabled && setBtnState('active');
+  const handleMouseDown = () => !disabled && setBtnState('pressed');
+  const handleMouseUp = () => !disabled && setBtnState('hover');
+  const handleDisable = () => setDisabled(d => !d);
+  React.useEffect(() => { if (disabled) setBtnState('disabled'); else setBtnState('active'); }, [disabled]);
+  return (
+    <div style={{ flex: 1, background: '#f3f5f1', borderRadius: 12, padding: 32, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <span style={{ fontWeight: 500, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>Demo</span>
+      <Button
+        size="large"
+        state={btnState}
+        icon={true}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        disabled={disabled}
+      >
+        Demo Button
+      </Button>
+      <button style={{ marginTop: 16, fontSize: 14 }} onClick={handleDisable}>
+        {disabled ? 'Enable' : 'Disable'}
+      </button>
     </div>
   );
 } 
