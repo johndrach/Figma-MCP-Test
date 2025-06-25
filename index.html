@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <style>
+      body { background: #f8f8f8; font-family: 'Open Sans', sans-serif; margin: 0; }
+      .playground-section { background: #fff; border-radius: 16px; margin: 32px auto; max-width: 900px; padding: 32px; box-shadow: 0 2px 8px #0001; }
+      .label { font-weight: 600; font-size: 1.2rem; margin-bottom: 16px; }
+      .controls { display: flex; gap: 48px; margin-bottom: 32px; }
+      .controls-group { display: flex; flex-direction: column; gap: 8px; }
+      .preview-box { background: #f3f5f1; border-radius: 12px; padding: 32px; margin-bottom: 32px; min-height: 120px; display: flex; align-items: center; }
+      .all-combos { background: #f3f5f1; border-radius: 12px; padding: 32px; }
+      .combos-table { width: 100%; border-collapse: collapse; }
+      .combos-table th, .combos-table td { text-align: center; padding: 12px; }
+      .combos-table th { font-size: 1rem; font-weight: 600; }
+      .combos-table td { vertical-align: middle; }
+      .row-label { font-weight: 500; text-align: right; padding-right: 16px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+const img = "http://localhost:3845/assets/54279a5a5418d68bdb761ce36ddd1a42b2271365.svg";
+
+// Figma variables
+const COLORS = {
+  active: "#7629a2", // component-variables/ui-buttons/primary-active
+  hover: "#5f1c8c", // component-variables/ui-buttons/primary-hover
+  pressed: "#430f66", // component-variables/ui-buttons/primary-pressed
+  disabled: "#e6e1e5", // component-variables/ui-buttons/primary-disabled
+};
+const TEXT_COLORS = {
+  active: "#ffffff", // ui-text-color/text-color-light
+  hover: "#ffffff",
+  pressed: "#ffffff",
+  disabled: "#787579", // ui-text-color/text-color-disabled
+};
+const ICON_COLORS = {
+  active: "#ffffff", // ui-icons/icon-color-light
+  hover: "#ffffff",
+  pressed: "#ffffff",
+  disabled: "#aeaaae", // ui-icons/icon-color-disabled
+};
+const SIZES = {
+  lg: { height: 48, fontSize: 16, padding: '0 24px', icon: 20 },
+  md: { height: 32, fontSize: 14, padding: '0 16px', icon: 16 },
+  sm: { height: 24, fontSize: 12, padding: '0 12px', icon: 14 },
+};
+const BORDER_RADIUS = 100;
+
+function Button({ size, state, icon = true, label = 'Test Button', ...rest }) {
+  const s = SIZES[size] || SIZES.md;
+  const st = state || 'active';
+  return (
+    <button
+      style={{
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        height: s.height, padding: s.padding, border: 'none', borderRadius: BORDER_RADIUS,
+        background: COLORS[st], color: TEXT_COLORS[st], fontSize: s.fontSize, fontWeight: 500,
+        fontFamily: 'Open Sans, sans-serif', cursor: st === 'disabled' ? 'not-allowed' : 'pointer',
+        opacity: st === 'disabled' ? 0.5 : 1, gap: 8, minWidth: 100,
+        transition: 'background 0.2s',
+      }}
+      disabled={st === 'disabled'}
+      {...rest}
+    >
+      {icon && <img src={img} alt="icon" style={{ width: s.icon, height: s.icon, marginRight: 8, filter: st === 'disabled' ? 'grayscale(1)' : undefined }} />}
+      {label}
+    </button>
+  );
+}
+
+function Playground() {
+  const [size, setSize] = React.useState('lg');
+  const [state, setState] = React.useState('active');
+
+  return (
+    <div className="playground-section">
+      <h1 style={{ fontWeight: 700, fontSize: '2rem', marginBottom: 24 }}>Button Playground</h1>
+      <div className="controls">
+        <div className="controls-group">
+          <span className="label">Size</span>
+          {Object.keys(SIZES).map(sz => (
+            <label key={sz} style={{ fontWeight: 400 }}>
+              <input type="radio" name="size" value={sz} checked={size === sz} onChange={() => setSize(sz)} /> {sz}
+            </label>
+          ))}
+        </div>
+        <div className="controls-group">
+          <span className="label">State</span>
+          {Object.keys(COLORS).map(st => (
+            <label key={st} style={{ fontWeight: 400 }}>
+              <input type="radio" name="state" value={st} checked={state === st} onChange={() => setState(st)} /> {st}
+            </label>
+          ))}
+        </div>
+      </div>
+      <div className="preview-box">
+        <div>
+          <span style={{ fontWeight: 500, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>Preview</span>
+          <Button size={size} state={state} />
+        </div>
+      </div>
+      <div className="all-combos">
+        <span style={{ fontWeight: 600, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>All Combinations</span>
+        <table className="combos-table">
+          <thead>
+            <tr>
+              <th></th>
+              {Object.keys(COLORS).map(st => <th key={st}>{st}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(SIZES).map(sz => (
+              <tr key={sz}>
+                <td className="row-label">{sz}</td>
+                {Object.keys(COLORS).map(st => (
+                  <td key={st}>
+                    <Button size={sz} state={st} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Playground />);
+    </script>
+  </body>
+</html> 
