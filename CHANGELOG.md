@@ -15,3 +15,7 @@ All notable changes to this project will be documented in this file.
 ## [v1.0.2] - 2024-06-11
 ### Changed
 - Set all playground and button gaps to 4px for consistent spacing 
+
+## [v1.0.3] - 2024-06-11
+### Added
+- Added Demo box with interactive button next to Preview box in playground 

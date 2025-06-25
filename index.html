@@ -78,7 +78,7 @@ function Button({ size, state, icon = true, label = 'Test Button', ...rest }) {
   );
 }
 
-function DemoButtonBox() {
+function DemoButtonBox({ showIcon }) {
   const [btnState, setBtnState] = React.useState('active');
   const [disabled, setDisabled] = React.useState(false);
   const handleMouseEnter = () => !disabled && setBtnState('hover');
@@ -93,7 +93,7 @@ function DemoButtonBox() {
       <Button
         size="lg"
         state={btnState}
-        icon={true}
+        icon={showIcon}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
@@ -111,6 +111,7 @@ function DemoButtonBox() {
 function Playground() {
   const [size, setSize] = React.useState('lg');
   const [state, setState] = React.useState('active');
+  const [showIcon, setShowIcon] = React.useState(true);
 
   return (
     <div className="playground-section">
@@ -132,15 +133,24 @@ function Playground() {
             </label>
           ))}
         </div>
+        <div className="controls-group">
+          <span className="label">Icon</span>
+          <label style={{ fontWeight: 400 }}>
+            <input type="radio" name="icon" value="yes" checked={showIcon} onChange={() => setShowIcon(true)} /> yes
+          </label>
+          <label style={{ fontWeight: 400 }}>
+            <input type="radio" name="icon" value="no" checked={!showIcon} onChange={() => setShowIcon(false)} /> no
+          </label>
+        </div>
       </div>
       <div style={{ display: 'flex', gap: 32, marginBottom: 32 }}>
         {/* Preview Box */}
         <div style={{ flex: 1, background: '#f3f5f1', borderRadius: 12, padding: 32, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <span style={{ fontWeight: 500, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>Preview</span>
-          <Button size={size} state={state} />
+          <Button size={size} state={state} icon={showIcon} />
         </div>
         {/* Demo Box */}
-        <DemoButtonBox />
+        <DemoButtonBox showIcon={showIcon} />
       </div>
       <div className="all-combos">
         <span style={{ fontWeight: 600, fontSize: '1.1rem', display: 'block', marginBottom: 16 }}>All Combinations</span>
@@ -157,7 +167,7 @@ function Playground() {
                 <td className="row-label">{sz}</td>
                 {Object.keys(COLORS).map(st => (
                   <td key={st}>
-                    <Button size={sz} state={st} />
+                    <Button size={sz} state={st} icon={showIcon} />
                   </td>
                 ))}
               </tr>
